@@ -16,20 +16,23 @@ namespace WindowsFormsApp1
 {
 		public partial class Form1 : Form
 	{
+		public string probel = "                    ";
+		public string dete1 = "";
+		public string dete2 = "";
+		public string dete3 = "";
+		public string dete4 = "";
+		public string dete5 = "";
+		public string Nazvanie = "";
+
 		public Form1()
 		{
 			InitializeComponent();
 		}
 
-		private void label1_Click(object sender, EventArgs e)
-		{
-
-		}
+		
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			System.Threading.Thread.Sleep(1000);
-			
 			int a = 0;
 			int b=1;
 			string[] portnames = SerialPort.GetPortNames();
@@ -50,36 +53,24 @@ namespace WindowsFormsApp1
 			if (b==1)
 			MessageBox.Show("Контроллер не найден", "Ошибка");
 		}
-
-		private void label1_Click_1(object sender, EventArgs e)
-		{
-
-		}
-
-		private void label2_Click(object sender, EventArgs e)
-		{
-
-		}
+		
 
 		private void button3_Click(object sender, EventArgs e)
 		{
+			string D = "D:\\";
+			string txt = ".txt";
+			Nazvanie = textBox6.Text;
+			Nazvanie = D + Nazvanie + txt;
+			StreamWriter file = new StreamWriter(Nazvanie);
 
-		}
+			char razdelitel = ' ';
+			string text = textBox1.Text;
+			string[] words = text.Split(razdelitel);
+			foreach (string s in words)
+			file.Write(s+"\r\n");
 
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void label3_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBox5_TextChanged(object sender, EventArgs e)
-		{
-
-		}
+			file.Close();
+		}		
 
 		private void button2_Click(object sender, EventArgs e)
 		{
@@ -130,7 +121,7 @@ namespace WindowsFormsApp1
 			string[] words = text.Split(razdelitel);
 			for (int i = 0; i < words.Length; i++)
 			{
-				data1=(words[0]);
+				data1 = (words[0]);
 				data2 = (words[1]);
 				data3 = (words[2]);
 				data4 = (words[3]);
@@ -141,41 +132,17 @@ namespace WindowsFormsApp1
 			Data3 = double.Parse(data3);
 			Data4 = double.Parse(data4);
 			Data5 = double.Parse(data5);
-			textBox1.Text = (Data1.ToString());
-			textBox2.Text = (Data2.ToString());
-			textBox3.Text = (Data3.ToString());
-			textBox4.Text = (Data4.ToString());
-			textBox5.Text = (Data5.ToString());
-		}
-
-		private void Form1_Load(object sender, EventArgs e)
-		{
-			
-		}
-
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
-
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void progressBar1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-
+			//textBox1.Text = (Data1.ToString());
+			dete1 = data1 + probel+ dete1;
+			dete2 = data2 + probel + dete2;
+			dete3 = data3 + probel + dete3;
+			dete4 = data4 + probel + dete4;
+			dete5 = data5 + probel + dete5;
+			textBox1.Text = (dete1);
+			textBox2.Text = (dete2);
+			textBox3.Text = (dete3);
+			textBox4.Text = (dete4);
+			textBox5.Text = (dete5);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
@@ -185,19 +152,43 @@ namespace WindowsFormsApp1
 			textBox3.Text = null;
 			textBox2.Text = null;
 			textBox1.Text = null;
-		}
+			 dete1 = "";
+		     dete2 = "";
+		     dete3 = "";
+		     dete4 = "";
+	         dete5 = "";
+	    }
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-
-			if (MessageBox.Show("Закрыть?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();
-						
+			if (MessageBox.Show("Закрыть?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();		
 		}
 
+
+
+		//Ниже находится не задействованный хлам)))
+		private void Form1_Load(object sender, EventArgs e)
+		{		}
+		private void textBox6_TextChanged(object sender, EventArgs e)
+		{		}
+		private void textBox7_TextChanged(object sender, EventArgs e)
+		{		}
 		private void label1_Click_2(object sender, EventArgs e)
-		{
-
-		}
+		{		}
+		private void label1_Click_3(object sender, EventArgs e)
+		{		}
+		private void label1_Click_1(object sender, EventArgs e)
+		{		}
+		private void label2_Click(object sender, EventArgs e)
+		{		}
+		private void label1_Click(object sender, EventArgs e)
+		{		}
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{		}
+		private void label3_Click(object sender, EventArgs e)
+		{		}
+		private void textBox5_TextChanged(object sender, EventArgs e)
+		{		}
 	}
 	
 }

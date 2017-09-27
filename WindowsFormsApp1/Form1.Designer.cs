@@ -41,19 +41,18 @@
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.textBox5 = new System.Windows.Forms.TextBox();
-			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
-			this.progressBar1 = new System.Windows.Forms.ProgressBar();
+			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(38, 350);
+			this.button1.Location = new System.Drawing.Point(38, 362);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(132, 37);
 			this.button1.TabIndex = 1;
@@ -112,7 +111,7 @@
 			// 
 			// textBox1
 			// 
-			this.textBox1.Location = new System.Drawing.Point(518, 88);
+			this.textBox1.Location = new System.Drawing.Point(38, 88);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(89, 232);
@@ -121,7 +120,7 @@
 			// 
 			// textBox2
 			// 
-			this.textBox2.Location = new System.Drawing.Point(402, 88);
+			this.textBox2.Location = new System.Drawing.Point(161, 88);
 			this.textBox2.Multiline = true;
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(89, 232);
@@ -137,7 +136,7 @@
 			// 
 			// textBox4
 			// 
-			this.textBox4.Location = new System.Drawing.Point(159, 88);
+			this.textBox4.Location = new System.Drawing.Point(399, 88);
 			this.textBox4.Multiline = true;
 			this.textBox4.Name = "textBox4";
 			this.textBox4.Size = new System.Drawing.Size(89, 232);
@@ -145,20 +144,12 @@
 			// 
 			// textBox5
 			// 
-			this.textBox5.Location = new System.Drawing.Point(38, 88);
+			this.textBox5.Location = new System.Drawing.Point(517, 88);
 			this.textBox5.Multiline = true;
 			this.textBox5.Name = "textBox5";
 			this.textBox5.Size = new System.Drawing.Size(89, 232);
 			this.textBox5.TabIndex = 12;
 			this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
-			// 
-			// textBox6
-			// 
-			this.textBox6.Location = new System.Drawing.Point(38, 28);
-			this.textBox6.Name = "textBox6";
-			this.textBox6.Size = new System.Drawing.Size(212, 20);
-			this.textBox6.TabIndex = 13;
-			this.textBox6.Text = "Название испытания";
 			// 
 			// label3
 			// 
@@ -191,7 +182,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(417, 72);
+			this.label6.Location = new System.Drawing.Point(412, 72);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(53, 13);
 			this.label6.TabIndex = 17;
@@ -206,22 +197,25 @@
 			this.label7.TabIndex = 18;
 			this.label7.Text = "Датчик 5";
 			// 
-			// progressBar1
+			// textBox6
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(38, 393);
-			this.progressBar1.Name = "progressBar1";
-			this.progressBar1.Size = new System.Drawing.Size(132, 23);
-			this.progressBar1.TabIndex = 19;
-			this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+			this.textBox6.Location = new System.Drawing.Point(176, 31);
+			this.textBox6.Name = "textBox6";
+			this.textBox6.Size = new System.Drawing.Size(212, 20);
+			this.textBox6.TabIndex = 13;
+			this.textBox6.Text = "Испытание";
+			this.textBox6.UseWaitCursor = true;
+			this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(455, 350);
+			this.label1.Location = new System.Drawing.Point(53, 34);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(35, 13);
-			this.label1.TabIndex = 20;
-			this.label1.Text = "label1";
+			this.label1.Size = new System.Drawing.Size(118, 13);
+			this.label1.TabIndex = 19;
+			this.label1.Text = "Название испытания:";
+			this.label1.Click += new System.EventHandler(this.label1_Click_3);
 			// 
 			// Form1
 			// 
@@ -229,7 +223,6 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(791, 428);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.progressBar1);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
@@ -274,7 +267,6 @@
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.ProgressBar progressBar1;
 		private System.Windows.Forms.Label label1;
 	}
 }
