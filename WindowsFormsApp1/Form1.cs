@@ -85,7 +85,17 @@ namespace WindowsFormsApp1
 		{
 			SerialPort STMport;
 			string[] portnames = SerialPort.GetPortNames();
-
+			string resylt=" ";
+			string data1 = " ";
+			string data2 = " ";
+			string data3 = " ";
+			string data4 = " ";
+			string data5 = " ";
+			double Data1 = 0;
+			double Data2 = 0;
+			double Data3 = 0;
+			double Data4 = 0;
+			double Data5 = 0;
 			int a = 0;
 			int b = 1;
 			foreach (string port in portnames)
@@ -95,7 +105,7 @@ namespace WindowsFormsApp1
 					a++;
 				}
 				else
-				{
+				{  
 					if (a == 1)
 					b++;
 					STMport = new SerialPort();
@@ -108,12 +118,34 @@ namespace WindowsFormsApp1
 					STMport.ReadTimeout = 1000;
 					STMport.DtrEnable = true;
 					STMport.Open();
-					textBox5.Text = STMport.ReadLine();
+					resylt = STMport.ReadLine();
 					STMport.Close();
 				}
 			}
 			if (b == 1)
 				MessageBox.Show("Проверте подключение", "Ошибка");
+
+			char razdelitel = ',';
+			string text = resylt;
+			string[] words = text.Split(razdelitel);
+			for (int i = 0; i < words.Length; i++)
+			{
+				data1=(words[0]);
+				data2 = (words[1]);
+				data3 = (words[2]);
+				data4 = (words[3]);
+				data5 = (words[4]);
+			}
+			Data1 = double.Parse(data1);
+			Data2 = double.Parse(data2);
+			Data3 = double.Parse(data3);
+			Data4 = double.Parse(data4);
+			Data5 = double.Parse(data5);
+			textBox1.Text = (Data1.ToString());
+			textBox2.Text = (Data2.ToString());
+			textBox3.Text = (Data3.ToString());
+			textBox4.Text = (Data4.ToString());
+			textBox5.Text = (Data5.ToString());
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -160,6 +192,11 @@ namespace WindowsFormsApp1
 
 			if (MessageBox.Show("Закрыть?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();
 						
+		}
+
+		private void label1_Click_2(object sender, EventArgs e)
+		{
+
 		}
 	}
 	
