@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Timers;
 using System.IO;
-
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace WindowsFormsApp1
 {
@@ -22,8 +22,11 @@ namespace WindowsFormsApp1
 		public string dete3 = "";
 		public string dete4 = "";
 		public string dete5 = "";
-		public string Nazvanie = "";
+		public string Nazvanie1 = "Test";
+		public string N = "";
+		public int nom = 1;
 		public int status=1;
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -61,10 +64,22 @@ namespace WindowsFormsApp1
 			{
 				string D = "D:\\";
 				string txt = ".txt";
-				Nazvanie = textBox6.Text;
-				Nazvanie = D + Nazvanie + txt;
-
-				StreamWriter file = new StreamWriter(Nazvanie);
+				string Nazvanie = "Test";
+				//Если стандартное имя файла
+				if (textBox6.Text == "Испытание")
+				{
+					N = nom.ToString();
+					Nazvanie1 = D + Nazvanie + N + txt;
+					nom++;
+					MessageBox.Show("Файл " + Nazvanie +N+ txt + " создан", "Файл создан");
+				}
+				else
+				{ Nazvanie = textBox6.Text;
+					Nazvanie1 = D + Nazvanie  + txt;
+					MessageBox.Show("Файл "+Nazvanie + txt+" создан" , "Файл создан");
+				}
+				
+				StreamWriter file = new StreamWriter(Nazvanie1);
 				char razdelitel = ' ';
 				string[] words1 = textBox1.Text.Split(razdelitel);
 				string[] words2 = textBox2.Text.Split(razdelitel);
@@ -127,7 +142,7 @@ namespace WindowsFormsApp1
 				}
 			}
 			if (b == 1)
-			{ MessageBox.Show("Проверте подключение", "Ошибка");
+			{ MessageBox.Show("Проверьте подключение", "Ошибка");
 				status = 1;
 			}
 			if (status == 0)
@@ -143,12 +158,11 @@ namespace WindowsFormsApp1
 					data4 = (words[3]);
 					data5 = (words[4]);
 				}
-				Data1 = double.Parse(data1);
+				Data1 = double.Parse(data1);     //для работы с показаниями 
 				Data2 = double.Parse(data2);
 				Data3 = double.Parse(data3);
 				Data4 = double.Parse(data4);
-				Data5 = double.Parse(data5);
-				//textBox1.Text = (Data1.ToString());
+				Data5 = double.Parse(data5);      
 				dete1 = data1 + probel + dete1;
 				dete2 = data2 + probel + dete2;
 				dete3 = data3 + probel + dete3;
@@ -165,27 +179,30 @@ namespace WindowsFormsApp1
 		 //   СБРОС ПОКАЗАНИЙ
 		private void button4_Click(object sender, EventArgs e)
 		{
+			full_delete();
+		}
+
+		//   ВЫХОД
+		private void button6_Click(object sender, EventArgs e)
+		{
+			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();		
+		}
+
+		public void full_delete()
+		{
 			textBox5.Text = null;
 			textBox4.Text = null;
 			textBox3.Text = null;
 			textBox2.Text = null;
 			textBox1.Text = null;
-			 dete1 = "";
-		     dete2 = "";
-		     dete3 = "";
-		     dete4 = "";
-	         dete5 = "";
-	    }
-
-		//   ВЫХОД
-		private void button6_Click(object sender, EventArgs e)
-		{
-			if (MessageBox.Show("Закрыть?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();		
+			dete1 = "";
+			dete2 = "";
+			dete3 = "";
+			dete4 = "";
+			dete5 = "";
 		}
 
-
-
-		//Ниже находится не задействованный хлам)))
+		//Ниже находится не задействованный хлам)
 		private void Form1_Load(object sender, EventArgs e)
 		{		}
 		private void textBox6_TextChanged(object sender, EventArgs e)
@@ -213,6 +230,7 @@ namespace WindowsFormsApp1
 		{
 
 		}
+
 	}
 	
 }
