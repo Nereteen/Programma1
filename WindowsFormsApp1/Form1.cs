@@ -27,6 +27,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 		public string N = "";
 		public int nom = 1;
 		public int status = 1;
+		public string[] stringArray1 = new string[20];
+		public string[] stringArray2 = new string[20];
+		public string[] stringArray3 = new string[20];
+		public string[] stringArray4 = new string[20];
+		public string[] stringArray5 = new string[20];
+		public int collMas = 0;
 
 
 		public Form1()
@@ -76,7 +82,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 				string D = "D:\\";
 				string txt = ".txt";
 				string Nazvanie = "Test";
-				//Если стандартное имя файла
+				int simbol1 = 0;
+				int simbol2 = 0;
+				int simbol3 = 0;
+				int simbol4 = 0;
+				int simbol5 = 0;
+				int probel1 = 0;
+				int probel2 = 0;
+				int probel3 = 0;
+				int probel4 = 0;
+				int probel5 = 0;
 				if (textBox6.Text == "Испытание")
 				{
 					N = nom.ToString();
@@ -96,18 +111,24 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 				string words3 = textBox3.Text;
 				string words4 = textBox4.Text;
 				string words5 = textBox5.Text;
-				/*char razdelitel = ' ';
-				string[] words1 = textBox1.Text.Split(razdelitel);
-				string[] words2 = textBox2.Text.Split(razdelitel);
-				string[] words3 = textBox3.Text.Split(razdelitel);
-				string[] words4 = textBox4.Text.Split(razdelitel);
-				string[] words5 = textBox5.Text.Split(razdelitel);*/
-				int coll1=textBox1.Lines.Length-1;
 
-				for (int i = 0; i < words1.Length; i++)
+				//int coll1=textBox1.Lines.Length-1;
+				file.WriteLine("Датчик1"+ "   Датчик2"+ "   Датчик3"+ "   Датчик4"+ "   Датчик5");
+				for (int i = 0; i < collMas; i++)
 				{
+					simbol1 = stringArray1[i].Length;
+					simbol2 = stringArray2[i].Length;
+					simbol3 = stringArray3[i].Length;
+					simbol4 = stringArray4[i].Length;
+					simbol5 = stringArray5[i].Length;
+					probel1 = 10 - simbol1;
+					probel2 = 10 - simbol2;
+					probel3 = 10 - simbol3;
+					probel4 = 10 - simbol4;
+					probel5 = 10 - simbol5;
+					String s = new String(' ', probel1);
 
-					file.WriteLine(words1 +  words2 + words3 + words4 + words5);
+					file.WriteLine(stringArray1[i] + s+ stringArray2[i] +s+  stringArray3[i] +s+   stringArray4[i] +s+  stringArray5[i]);
 				}
 
 
@@ -179,6 +200,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 				Data3 = double.Parse(data3)* mnozh;
 				Data4 = double.Parse(data4)* mnozh;
 				Data5 = double.Parse(data5)* mnozh;
+
+				stringArray1[collMas] = Data1.ToString();
+				stringArray2[collMas] = Data2.ToString();
+				stringArray3[collMas] = Data3.ToString();
+				stringArray4[collMas] = Data4.ToString();
+				stringArray5[collMas] = Data5.ToString();
+				collMas++;
+
 				dete1 = Data1.ToString() + Environment.NewLine + dete1;
 				dete2 = Data2.ToString() + Environment.NewLine + dete2;
 				dete3 = Data3.ToString() + Environment.NewLine + dete3;
@@ -207,6 +236,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();
 		}
 
+		//   УДАЛЕНИЕ
 		public void full_delete()
 		{
 			textBox5.Text = null;
@@ -219,6 +249,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 			dete3 = "";
 			dete4 = "";
 			dete5 = "";
+			collMas=0;
 		}
 
 		//    НАСТРОЙКИ
@@ -239,6 +270,49 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 			public string Name { get; set; }
 			public double Mn { get; set; }
 		}
+
+		//    КАЛИБРОВКА
+		private void button7_Click(object sender, EventArgs e)
+		{
+			SerialPort STMport;
+			string[] portnames = SerialPort.GetPortNames();
+			string resylt = " ";
+			int a = 0;
+			int b = 1;
+			foreach (string port in portnames)
+			{
+				if (portnames[a] == "COM1")
+				{
+					a++;
+				}
+				else
+				{
+					if (a == 1)
+						b++;
+					STMport = new SerialPort();
+					STMport.PortName = portnames[1];
+					STMport.BaudRate = 9600;
+					STMport.DataBits = 8;
+					STMport.Parity = System.IO.Ports.Parity.None;
+					STMport.StopBits = System.IO.Ports.StopBits.One;
+					STMport.ReadBufferSize = 16;
+					STMport.ReadTimeout = 1000;
+					STMport.DtrEnable = true;
+					STMport.Open();
+					resylt = STMport.ReadLine();
+					STMport.Close();
+				}
+			}
+			if (b == 1)
+			{
+				MessageBox.Show("Проверьте подключение", "Ошибка");
+				status = 1;
+			}
+			if (status == 0) { };
+
+		}
+
+
 		//Ниже находится не задействованный хлам)
 		private void Form1_Load(object sender, EventArgs e)
 		{ }
@@ -267,7 +341,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 		{
 
 		}
-
 
 	}
 	
