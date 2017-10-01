@@ -11,8 +11,9 @@ using System.IO.Ports;
 using System.Timers;
 using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Threading;
 
- namespace WindowsFormsApp1
+namespace WindowsFormsApp1
 {
 	public partial class Form1 : Form
 	{
@@ -51,10 +52,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 		//  КНОПКА ПОДКЛЮЧЕНИЯ
 		private void button1_Click(object sender, EventArgs e)
 		{
+			SerialPort STMport;
 			int a = 0;
 			int b = 0;
 			string[] portnames = SerialPort.GetPortNames();
-
 			foreach (string port in portnames)
 			{
 				if (portnames[a] == "COM1")
@@ -62,7 +63,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 					a++;
 				}
 				else
-				{ if (a == 1)
+				{
+					if (a == 1)
 						MessageBox.Show("Подключено", port);
 					b++;
 					status = 0;
@@ -73,7 +75,43 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 				MessageBox.Show("Контроллер не найден", "Ошибка");
 				status = 1;
 			}
+
+			for (int statusZn = 0; status == 0; statusZn++)
+			{
+				label8.Refresh();
+				label9.Refresh();
+				label10.Refresh();
+				label11.Refresh();
+				label12.Refresh();
+				string resylt = " ";
+				STMport = new SerialPort();
+				STMport.PortName = portnames[1];
+				STMport.BaudRate = 9600;
+				STMport.DataBits = 8;
+				STMport.Parity = System.IO.Ports.Parity.None;
+				STMport.StopBits = System.IO.Ports.StopBits.One;
+				STMport.ReadBufferSize = 16;
+				STMport.ReadTimeout = 1000;
+				STMport.DtrEnable = true;
+				STMport.Open();
+				resylt = STMport.ReadLine();
+				STMport.Close();
+				char razdelitel = ',';
+				string text = resylt;
+				string[] words = text.Split(razdelitel);
+				for (int i = 0; i < words.Length; i++)
+				{
+					Thread.Sleep(100);
+					label8.Text = (words[0]);
+					label9.Text = (words[1]);
+					label10.Text = (words[2]);
+					label11.Text = (words[3]);
+					label12.Text = (words[4]);
+				}
+			}
 		}
+
+		
 
 		//  КНОПКА СОХРАНИНИЯ 
 		private void button3_Click(object sender, EventArgs e)
@@ -176,6 +214,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 					STMport.Open();
 					resylt = STMport.ReadLine();
 					STMport.Close();
+
 				}
 			}
 			if (b == 1)
@@ -270,46 +309,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 			public string Name { get; set; }
 			public double Mn { get; set; }
 		}
+		
 
 		//    КАЛИБРОВКА
 		private void button7_Click(object sender, EventArgs e)
 		{
-			SerialPort STMport;
-			string[] portnames = SerialPort.GetPortNames();
-			string resylt = " ";
-			int a = 0;
-			int b = 1;
-			foreach (string port in portnames)
-			{
-				if (portnames[a] == "COM1")
-				{
-					a++;
-				}
-				else
-				{
-					if (a == 1)
-						b++;
-					STMport = new SerialPort();
-					STMport.PortName = portnames[1];
-					STMport.BaudRate = 9600;
-					STMport.DataBits = 8;
-					STMport.Parity = System.IO.Ports.Parity.None;
-					STMport.StopBits = System.IO.Ports.StopBits.One;
-					STMport.ReadBufferSize = 16;
-					STMport.ReadTimeout = 1000;
-					STMport.DtrEnable = true;
-					STMport.Open();
-					resylt = STMport.ReadLine();
-					STMport.Close();
-				}
-			}
-			if (b == 1)
-			{
-				MessageBox.Show("Проверьте подключение", "Ошибка");
-				status = 1;
-			}
-			if (status == 0) { };
-
 		}
 
 
@@ -342,6 +346,30 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 		}
 
+		private void label12_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label11_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label10_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label9_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label8_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 	
 }
