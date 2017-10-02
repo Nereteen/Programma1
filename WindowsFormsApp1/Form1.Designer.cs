@@ -48,7 +48,6 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.button5 = new System.Windows.Forms.Button();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -232,16 +231,6 @@
 			this.label1.TabIndex = 19;
 			this.label1.Text = "Название испытания:";
 			this.label1.Click += new System.EventHandler(this.label1_Click_3);
-			// 
-			// button5
-			// 
-			this.button5.Location = new System.Drawing.Point(364, 362);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(132, 37);
-			this.button5.TabIndex = 20;
-			this.button5.Text = "Настройки";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
 			// 
 			// comboBox1
 			// 
@@ -432,7 +421,6 @@
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.comboBox1);
-			this.Controls.Add(this.button5);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
@@ -478,7 +466,6 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.PictureBox pictureBox1;
