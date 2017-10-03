@@ -56,9 +56,11 @@ namespace WindowsFormsApp1
 
 		//  КНОПКА ПОДКЛЮЧЕНИЯ
 		private void button1_Click(object sender, EventArgs e)
-		{
-			Thread x = new Thread(PodklForm);
-			x.Start();
+		{  if (status == 1)
+			{
+				Thread x = new Thread(PodklForm);
+				x.Start();
+			}
 		}
 
 		//  КНОПКА СОХРАНИНИЯ 
@@ -136,24 +138,9 @@ namespace WindowsFormsApp1
 			double Data3 = 0;
 			double Data4 = 0;
 			double Data5 = 0;
-			int a = 0;
-			int b = 1;
-			foreach (string port in portnames)
-			{
-				if (portnames[a] == "COM1")
-				{
-					a++;
-				}
-				else
-				{
-					if (a == 1)
-						b++;
-				}
-			}
-			if (b == 1)
-			{ MessageBox.Show("Проверьте подключение", "Ошибка");
-				status = 1;
-			}
+
+			if (status == 1)
+			MessageBox.Show("Проверьте подключение", "Ошибка");
 			if (status == 0)
 			{
 				char razdelitel = ',';
@@ -191,8 +178,6 @@ namespace WindowsFormsApp1
 				textBox3.Text = (dete3);
 				textBox4.Text = (dete4);
 				textBox5.Text = (dete5);
-
-
 			}
 		}
 
