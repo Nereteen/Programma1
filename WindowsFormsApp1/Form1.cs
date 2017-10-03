@@ -36,7 +36,9 @@ namespace WindowsFormsApp1
 		public string[] stringArray4 = new string[20];
 		public string[] stringArray5 = new string[20];
 		public int collMas = 0;
-
+		public string[] portnames = SerialPort.GetPortNames();
+		public SerialPort STMport;
+		public string resylt = " ";
 
 		public Form1()
 		{
@@ -123,9 +125,7 @@ namespace WindowsFormsApp1
 		//     ВЫВОД ДАННЫХ
 		private void button2_Click(object sender, EventArgs e)
 		{
-			SerialPort STMport;
-			string[] portnames = SerialPort.GetPortNames();
-			string resylt = " ";
+			
 			string data1 = " ";
 			string data2 = " ";
 			string data3 = " ";
@@ -148,19 +148,6 @@ namespace WindowsFormsApp1
 				{
 					if (a == 1)
 						b++;
-					STMport = new SerialPort();
-					STMport.PortName = portnames[1];
-					STMport.BaudRate = 9600;
-					STMport.DataBits = 8;
-					STMport.Parity = System.IO.Ports.Parity.None;
-					STMport.StopBits = System.IO.Ports.StopBits.One;
-					STMport.ReadBufferSize = 16;
-					STMport.ReadTimeout = 1000;
-					STMport.DtrEnable = true;
-					STMport.Open();
-					resylt = STMport.ReadLine();
-					STMport.Close();
-
 				}
 			}
 			if (b == 1)
@@ -259,10 +246,8 @@ namespace WindowsFormsApp1
 		private void PodklForm()
 		{
 			Form x = new Form();
-			SerialPort STMport;
 			int a = 0;
 			int b = 0;
-			string[] portnames = SerialPort.GetPortNames();
 			foreach (string port in portnames)
 			{
 				if (portnames[a] == "COM1")
@@ -290,7 +275,6 @@ namespace WindowsFormsApp1
 				label10.Refresh();
 				label11.Refresh();
 				label12.Refresh();
-				string resylt = " ";
 				STMport = new SerialPort();
 				STMport.PortName = portnames[1];
 				STMport.BaudRate = 9600;
