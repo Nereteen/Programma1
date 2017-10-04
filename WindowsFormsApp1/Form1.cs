@@ -20,7 +20,6 @@ namespace WindowsFormsApp1
 	public partial class Form1 : Form
 	{
 		static public double mnozh;
-		public string probel = "                    ";
 		public string dete1 = "";
 		public string dete2 = "";
 		public string dete3 = "";
@@ -58,8 +57,68 @@ namespace WindowsFormsApp1
 		private void button1_Click(object sender, EventArgs e)
 		{  if (status == 1)
 			{
-				Thread x = new Thread(PodklForm);
-				x.Start();
+			    Thread xot = new Thread(PodklForm);
+				xot.Start();
+			}
+		}
+
+		//  КНОПКА ПОДКЛЮЧЕНИЯ (КОД)
+		private void PodklForm()
+		{
+			Form x = new Form();
+			int a = 0;
+			int b = 0;
+			foreach (string port in portnames)
+			{
+				if (portnames[a] == "COM1")
+				{
+					a++;
+				}
+				else
+				{
+					if (a == 1)
+						MessageBox.Show("Подключено", port);
+					b++;
+					status = 0;
+				}
+			}
+			if (b == 0)
+			{
+				MessageBox.Show("Контроллер не найден", "Ошибка");
+				status = 1;
+			}
+
+			for (int statusZn = 0; status == 0; statusZn++)
+			{
+				label8.Refresh();
+				label9.Refresh();
+				label10.Refresh();
+				label11.Refresh();
+				label12.Refresh();
+				STMport = new SerialPort();
+				STMport.PortName = portnames[1];
+				STMport.BaudRate = 9600;
+				STMport.DataBits = 8;
+				STMport.Parity = System.IO.Ports.Parity.None;
+				STMport.StopBits = System.IO.Ports.StopBits.One;
+				STMport.ReadBufferSize = 16;
+				STMport.ReadTimeout = 1000;
+				STMport.DtrEnable = true;
+				STMport.Open();
+				resylt = STMport.ReadLine();
+				STMport.Close();
+				char razdelitel = ',';
+				string text = resylt;
+				string[] words = text.Split(razdelitel);
+				for (int i = 0; i < words.Length; i++)
+				{
+					Thread.Sleep(10);
+					label8.Text = (words[0]);
+					label9.Text = (words[1]);
+					label10.Text = (words[2]);
+					label11.Text = (words[3]);
+					label12.Text = (words[4]);
+				}
 			}
 		}
 
@@ -100,7 +159,6 @@ namespace WindowsFormsApp1
 				string words4 = textBox4.Text;
 				string words5 = textBox5.Text;
 
-				//int coll1=textBox1.Lines.Length-1;
 				file.WriteLine("Датчик1" + "   Датчик2" + "   Датчик3" + "   Датчик4" + "   Датчик5");
 				for (int i = 0; i < collMas; i++)
 				{
@@ -187,10 +245,27 @@ namespace WindowsFormsApp1
 			full_delete();
 		}
 
+		//    МЕРА ИЗМЕРЕНИЯ
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			mera izmer = (mera)comboBox1.SelectedItem;
+			mnozh = izmer.Mn;
+		}
+		public class mera
+		{
+			public int Id { get; set; }
+			public string Name { get; set; }
+			public double Mn { get; set; }
+		}
+
 		//    ВЫХОД
 		private void button6_Click(object sender, EventArgs e)
 		{
-			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) this.Close();
+			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) full_delete(); Environment.Exit(0); Close();
+		}
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			full_delete(); Environment.Exit(0); Close();
 		}
 
 		//   УДАЛЕНИЕ
@@ -209,87 +284,16 @@ namespace WindowsFormsApp1
 			collMas = 0;
 		}
 
-		//    МЕРА ИЗМЕРЕНИЯ
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			mera izmer = (mera)comboBox1.SelectedItem;
-			mnozh = izmer.Mn;
-		}
-		public class mera
-		{
-			public int Id { get; set; }
-			public string Name { get; set; }
-			public double Mn { get; set; }
-		}
-
 		//    КАЛИБРОВКА
 		private void button7_Click(object sender, EventArgs e)
 		{
 		}
 
-		//  КНОПКА ПОДКЛЮЧЕНИЯ (КОД)
-		private void PodklForm()
-		{
-			Form x = new Form();
-			int a = 0;
-			int b = 0;
-			foreach (string port in portnames)
-			{
-				if (portnames[a] == "COM1")
-				{
-					a++;
-				}
-				else
-				{
-					if (a == 1)
-						MessageBox.Show("Подключено", port);
-					b++;
-					status = 0;
-				}
-			}
-			if (b == 0)
-			{
-				MessageBox.Show("Контроллер не найден", "Ошибка");
-				status = 1;
-			}
 
-			for (int statusZn = 0; status == 0; statusZn++)
-			{
-				label8.Refresh();
-				label9.Refresh();
-				label10.Refresh();
-				label11.Refresh();
-				label12.Refresh();
-				STMport = new SerialPort();
-				STMport.PortName = portnames[1];
-				STMport.BaudRate = 9600;
-				STMport.DataBits = 8;
-				STMport.Parity = System.IO.Ports.Parity.None;
-				STMport.StopBits = System.IO.Ports.StopBits.One;
-				STMport.ReadBufferSize = 16;
-				STMport.ReadTimeout = 1000;
-				STMport.DtrEnable = true;
-				STMport.Open();
-				resylt = STMport.ReadLine();
-				STMport.Close();
-				char razdelitel = ',';
-				string text = resylt;
-				string[] words = text.Split(razdelitel);
-				for (int i = 0; i < words.Length; i++)
-				{
-					Thread.Sleep(100);
-					label8.Text = (words[0]);
-					label9.Text = (words[1]);
-					label10.Text = (words[2]);
-					label11.Text = (words[3]);
-					label12.Text = (words[4]);
-				}
-			}
-		}
 
 		//Ниже находится не задействованный хлам)
 		private void Form1_Load(object sender, EventArgs e)
-		{ }
+		{}
 		private void textBox6_TextChanged(object sender, EventArgs e)
 		{ }
 		private void textBox7_TextChanged(object sender, EventArgs e)
@@ -310,11 +314,8 @@ namespace WindowsFormsApp1
 		{ }
 		private void textBox5_TextChanged(object sender, EventArgs e)
 		{ }
-
 		private void label2_Click_1(object sender, EventArgs e)
-		{
-
-		}
+		{ }
 		private void label12_Click(object sender, EventArgs e)
 		{
 
