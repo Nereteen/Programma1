@@ -263,6 +263,8 @@
 			this.textBox7.Name = "textBox7";
 			this.textBox7.Size = new System.Drawing.Size(89, 20);
 			this.textBox7.TabIndex = 35;
+			this.textBox7.Text = "0";
+			this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged_1);
 			// 
 			// textBox8
 			// 
@@ -270,6 +272,8 @@
 			this.textBox8.Name = "textBox8";
 			this.textBox8.Size = new System.Drawing.Size(89, 20);
 			this.textBox8.TabIndex = 34;
+			this.textBox8.Text = "0";
+			this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
 			// 
 			// textBox9
 			// 
@@ -277,6 +281,8 @@
 			this.textBox9.Name = "textBox9";
 			this.textBox9.Size = new System.Drawing.Size(89, 20);
 			this.textBox9.TabIndex = 33;
+			this.textBox9.Text = "0";
+			this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
 			// 
 			// textBox10
 			// 
@@ -284,6 +290,8 @@
 			this.textBox10.Name = "textBox10";
 			this.textBox10.Size = new System.Drawing.Size(89, 20);
 			this.textBox10.TabIndex = 32;
+			this.textBox10.Text = "0";
+			this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
 			// 
 			// textBox11
 			// 
@@ -291,6 +299,8 @@
 			this.textBox11.Name = "textBox11";
 			this.textBox11.Size = new System.Drawing.Size(89, 20);
 			this.textBox11.TabIndex = 31;
+			this.textBox11.Text = "0";
+			this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
 			// 
 			// label8
 			// 
@@ -383,7 +393,6 @@
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
-			this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

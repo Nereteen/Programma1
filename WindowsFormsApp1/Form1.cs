@@ -20,6 +20,16 @@ namespace WindowsFormsApp1
 	public partial class Form1 : Form
 	{
 		static public double mnozh;
+		static public double kalibrovka1 = 0;
+		static public double kalibrovka2 = 0;
+		static public double kalibrovka3 = 0;
+		static public double kalibrovka4 = 0;
+		static public double kalibrovka5 = 0;
+		public double Data1 = 0;
+		public double Data2 = 0;
+		public double Data3 = 0;
+		public double Data4 = 0;
+		public double Data5 = 0;
 		public string dete1 = "";
 		public string dete2 = "";
 		public string dete3 = "";
@@ -38,6 +48,7 @@ namespace WindowsFormsApp1
 		public string[] portnames = SerialPort.GetPortNames();
 		public SerialPort STMport;
 		public string resylt = " ";
+		public string[] words;
 
 		public Form1()
 		{
@@ -90,6 +101,7 @@ namespace WindowsFormsApp1
 
 			for (int statusZn = 0; status == 0; statusZn++)
 			{
+				
 				label8.Refresh();
 				label9.Refresh();
 				label10.Refresh();
@@ -109,15 +121,21 @@ namespace WindowsFormsApp1
 				STMport.Close();
 				char razdelitel = ',';
 				string text = resylt;
-				string[] words = text.Split(razdelitel);
+				words = text.Split(razdelitel);
 				for (int i = 0; i < words.Length; i++)
 				{
+					Data1 = double.Parse(words[0]) * mnozh + kalibrovka1;    
+					Data2 = double.Parse(words[1]) * mnozh + kalibrovka2;
+					Data3 = double.Parse(words[2]) * mnozh + kalibrovka3;
+					Data4 = double.Parse(words[3]) * mnozh + kalibrovka4;
+					Data5 = double.Parse(words[4]) * mnozh + kalibrovka5;
+
 					Thread.Sleep(10);
-					label8.Text = (words[0]);
-					label9.Text = (words[1]);
-					label10.Text = (words[2]);
-					label11.Text = (words[3]);
-					label12.Text = (words[4]);
+					label8.Text = (Data1.ToString());
+					label9.Text = (Data2.ToString());
+					label10.Text = (Data3.ToString());
+					label11.Text = (Data4.ToString());
+					label12.Text = (Data5.ToString());
 				}
 			}
 		}
@@ -129,11 +147,6 @@ namespace WindowsFormsApp1
 				string D = "D:\\";
 				string txt = ".txt";
 				string Nazvanie = "Test";
-				int simbol1 = 0;
-				int simbol2 = 0;
-				int simbol3 = 0;
-				int simbol4 = 0;
-				int simbol5 = 0;
 				int probel1 = 0;
 				int probel2 = 0;
 				int probel3 = 0;
@@ -153,31 +166,21 @@ namespace WindowsFormsApp1
 				}
 
 				StreamWriter file = new StreamWriter(Nazvanie1);
-				string words1 = textBox1.Text;
-				string words2 = textBox2.Text;
-				string words3 = textBox3.Text;
-				string words4 = textBox4.Text;
-				string words5 = textBox5.Text;
 
 				file.WriteLine("Датчик1" + "   Датчик2" + "   Датчик3" + "   Датчик4" + "   Датчик5");
 				for (int i = 0; i < collMas; i++)
 				{
-					simbol1 = stringArray1[i].Length;
-					simbol2 = stringArray2[i].Length;
-					simbol3 = stringArray3[i].Length;
-					simbol4 = stringArray4[i].Length;
-					simbol5 = stringArray5[i].Length;
-					probel1 = 10 - simbol1;
-					probel2 = 10 - simbol2;
-					probel3 = 10 - simbol3;
-					probel4 = 10 - simbol4;
-					probel5 = 10 - simbol5;
-					String s = new String(' ', probel1);
-
-					file.WriteLine(stringArray1[i] + s + stringArray2[i] + s + stringArray3[i] + s + stringArray4[i] + s + stringArray5[i]);
+					probel1 = 10 - stringArray1[i].Length;
+					probel2 = 10 - stringArray2[i].Length; 
+					probel3 = 10 - stringArray3[i].Length; 
+					probel4 = 10 - stringArray4[i].Length; 
+					probel5 = 10 - stringArray5[i].Length; 
+					String s1 = new String(' ', probel1);
+					String s2 = new String(' ', probel2);
+					String s3 = new String(' ', probel3);
+					String s4 = new String(' ', probel4);
+					file.WriteLine(stringArray1[i] + s1 + stringArray2[i] + s2 + stringArray3[i] + s3 + stringArray4[i] + s4 + stringArray5[i]);
 				}
-
-
 				file.Close();
 			}
 		}
@@ -185,51 +188,23 @@ namespace WindowsFormsApp1
 		//     ВЫВОД ДАННЫХ
 		private void button2_Click(object sender, EventArgs e)
 		{
-			
-			string data1 = " ";
-			string data2 = " ";
-			string data3 = " ";
-			string data4 = " ";
-			string data5 = " ";
-			double Data1 = 0;
-			double Data2 = 0;
-			double Data3 = 0;
-			double Data4 = 0;
-			double Data5 = 0;
 
 			if (status == 1)
 			MessageBox.Show("Проверьте подключение", "Ошибка");
 			if (status == 0)
 			{
-				char razdelitel = ',';
-				string text = resylt;
-				string[] words = text.Split(razdelitel);
-				for (int i = 0; i < words.Length; i++)
-				{
-					data1 = (words[0]);
-					data2 = (words[1]);
-					data3 = (words[2]);
-					data4 = (words[3]);
-					data5 = (words[4]);
-				}
-				Data1 = double.Parse(data1) * mnozh;     //для работы с показаниями 
-				Data2 = double.Parse(data2) * mnozh;
-				Data3 = double.Parse(data3) * mnozh;
-				Data4 = double.Parse(data4) * mnozh;
-				Data5 = double.Parse(data5) * mnozh;
-
-				stringArray1[collMas] = Data1.ToString();
-				stringArray2[collMas] = Data2.ToString();
-				stringArray3[collMas] = Data3.ToString();
-				stringArray4[collMas] = Data4.ToString();
-				stringArray5[collMas] = Data5.ToString();
+				stringArray1[collMas] = label8.Text.ToString();
+				stringArray2[collMas] = label9.Text.ToString();
+				stringArray3[collMas] = label10.Text.ToString();
+				stringArray4[collMas] = label11.Text.ToString();
+				stringArray5[collMas] = label12.Text.ToString();
 				collMas++;
 
-				dete1 = Data1.ToString() + Environment.NewLine + dete1;
-				dete2 = Data2.ToString() + Environment.NewLine + dete2;
-				dete3 = Data3.ToString() + Environment.NewLine + dete3;
-				dete4 = Data4.ToString() + Environment.NewLine + dete4;
-				dete5 = Data5.ToString() + Environment.NewLine + dete5;
+				dete1 = label8.Text + Environment.NewLine + dete1;
+				dete2 = label9.Text + Environment.NewLine + dete2;
+				dete3 = label10.Text + Environment.NewLine + dete3;
+				dete4 = label11.Text + Environment.NewLine + dete4;
+				dete5 = label12.Text + Environment.NewLine + dete5;
 
 				textBox1.Text = (dete1);
 				textBox2.Text = (dete2);
@@ -287,9 +262,28 @@ namespace WindowsFormsApp1
 		//    КАЛИБРОВКА
 		private void button7_Click(object sender, EventArgs e)
 		{
+			if (textBox11.Text == "")
+			{ textBox11.Text = "0"; }
+			else
+				kalibrovka1 = double.Parse(textBox11.Text);
+			if (textBox10.Text == "")
+			{ textBox10.Text = "0"; }
+			else
+				kalibrovka2 = double.Parse(textBox10.Text);
+			if (textBox9.Text == "")
+			{ textBox9.Text = "0"; }
+			else
+				kalibrovka3 = double.Parse(textBox9.Text);
+			if (textBox8.Text == "")
+			{ textBox8.Text = "0"; }
+			else
+				kalibrovka4 = double.Parse(textBox8.Text);
+			if (textBox7.Text == "")
+			{ textBox7.Text = "0"; }
+			else
+				kalibrovka5 = double.Parse(textBox7.Text);
+
 		}
-
-
 
 		//Ниже находится не задействованный хлам)
 		private void Form1_Load(object sender, EventArgs e)
@@ -337,6 +331,29 @@ namespace WindowsFormsApp1
 		}
 
 		private void label8_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox11_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void textBox10_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void textBox9_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox8_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBox7_TextChanged_1(object sender, EventArgs e)
 		{
 
 		}
