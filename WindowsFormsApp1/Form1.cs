@@ -53,6 +53,18 @@ namespace WindowsFormsApp1
 		public Form1()
 		{
 			InitializeComponent();
+			kalibrovka1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
+			kalibrovka2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
+			kalibrovka3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
+			kalibrovka4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
+			kalibrovka5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
+
+			textBox11.Text = kalibrovka1.ToString();
+			textBox10.Text = kalibrovka2.ToString();
+			textBox9.Text = kalibrovka3.ToString();
+			textBox8.Text = kalibrovka4.ToString();
+			textBox7.Text = kalibrovka5.ToString();
+
 			List<mera> izmer = new List<mera>
 		{
 			new mera { Id=2, Name="Граммы", Mn=1},
@@ -66,7 +78,8 @@ namespace WindowsFormsApp1
 
 		//  КНОПКА ПОДКЛЮЧЕНИЯ
 		private void button1_Click(object sender, EventArgs e)
-		{  if (status == 1)
+		{
+			if (status == 1)
 			{
 			    Thread xot = new Thread(PodklForm);
 				xot.Start();
@@ -236,11 +249,11 @@ namespace WindowsFormsApp1
 		//    ВЫХОД
 		private void button6_Click(object sender, EventArgs e)
 		{
-			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) full_delete(); Environment.Exit(0); Close();
+			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) exit();
 		}
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			full_delete(); Environment.Exit(0); Close();
+			exit();
 		}
 
 		//   УДАЛЕНИЕ
@@ -259,31 +272,53 @@ namespace WindowsFormsApp1
 			collMas = 0;
 		}
 
+		//   ПОЛНЫЙ ВЫХОД
+		public void exit()
+		{
+			Properties.Settings.Default.TEXTBOX_kalibrovka1 = kalibrovka1;
+			Properties.Settings.Default.TEXTBOX_kalibrovka2 = kalibrovka2;
+			Properties.Settings.Default.TEXTBOX_kalibrovka3 = kalibrovka3;
+			Properties.Settings.Default.TEXTBOX_kalibrovka4 = kalibrovka4;
+			Properties.Settings.Default.TEXTBOX_kalibrovka5 = kalibrovka5;
+			Properties.Settings.Default.Save();
+			full_delete(); Environment.Exit(0); Close();
+		}
+
 		//    КАЛИБРОВКА
 		private void button7_Click(object sender, EventArgs e)
 		{
-			if (textBox11.Text == "")
-			{ textBox11.Text = "0"; }
-			else
-				kalibrovka1 = double.Parse(textBox11.Text);
-			if (textBox10.Text == "")
-			{ textBox10.Text = "0"; }
-			else
-				kalibrovka2 = double.Parse(textBox10.Text);
-			if (textBox9.Text == "")
-			{ textBox9.Text = "0"; }
-			else
-				kalibrovka3 = double.Parse(textBox9.Text);
-			if (textBox8.Text == "")
-			{ textBox8.Text = "0"; }
-			else
-				kalibrovka4 = double.Parse(textBox8.Text);
-			if (textBox7.Text == "")
-			{ textBox7.Text = "0"; }
-			else
-				kalibrovka5 = double.Parse(textBox7.Text);
-
+			kalibrovka1 = double.Parse(textBox11.Text);
+			kalibrovka2 = double.Parse(textBox10.Text);
+			kalibrovka3 = double.Parse(textBox9.Text);
+			kalibrovka4 = double.Parse(textBox8.Text);
+			kalibrovka5 = double.Parse(textBox7.Text);
 		}
+
+
+		private void textBox11_TextChanged(object sender, EventArgs e)
+		{
+			/*double qr = 0; //kalibrovka1
+			if (textBox11.Text == "")
+			{ qr = "0"; }
+			else*/
+		}
+
+		private void textBox10_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void textBox9_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void textBox8_TextChanged(object sender, EventArgs e)
+		{
+		}
+
+		private void textBox7_TextChanged_1(object sender, EventArgs e)
+		{
+		}
+
 
 		//Ниже находится не задействованный хлам)
 		private void Form1_Load(object sender, EventArgs e)
@@ -331,29 +366,6 @@ namespace WindowsFormsApp1
 		}
 
 		private void label8_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBox11_TextChanged(object sender, EventArgs e)
-		{
-		}
-
-		private void textBox10_TextChanged(object sender, EventArgs e)
-		{
-		}
-
-		private void textBox9_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBox8_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBox7_TextChanged_1(object sender, EventArgs e)
 		{
 
 		}
