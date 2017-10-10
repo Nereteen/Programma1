@@ -30,6 +30,16 @@ namespace WindowsFormsApp1
 		public double Data3 = 0;
 		public double Data4 = 0;
 		public double Data5 = 0;
+		public double k1 = 1;
+		public double k2 = 1;
+		public double k3 = 1;
+		public double k4 = 1;
+		public double k5 = 1;
+		public double R1 = 1;
+		public double R2 = 1;
+		public double R3 = 1;
+		public double R4 = 1;
+		public double R5 = 1;
 		public string dete1 = "";
 		public string dete2 = "";
 		public string dete3 = "";
@@ -53,11 +63,11 @@ namespace WindowsFormsApp1
 		public Form1()
 		{
 			InitializeComponent();
-			kalibrovka1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
-			kalibrovka2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
-			kalibrovka3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
-			kalibrovka4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
-			kalibrovka5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
+			k1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
+			k2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
+			k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
+			k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
+			k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
 
 			textBox11.Text = kalibrovka1.ToString();
 			textBox10.Text = kalibrovka2.ToString();
@@ -90,6 +100,7 @@ namespace WindowsFormsApp1
 		private void PodklForm()
 		{
 			Form x = new Form();
+			
 			int a = 0;
 			int b = 0;
 			foreach (string port in portnames)
@@ -137,11 +148,12 @@ namespace WindowsFormsApp1
 				words = text.Split(razdelitel);
 				for (int i = 0; i < words.Length; i++)
 				{
-					Data1 = double.Parse(words[0]) * mnozh + kalibrovka1;    
-					Data2 = double.Parse(words[1]) * mnozh + kalibrovka2;
-					Data3 = double.Parse(words[2]) * mnozh + kalibrovka3;
-					Data4 = double.Parse(words[3]) * mnozh + kalibrovka4;
-					Data5 = double.Parse(words[4]) * mnozh + kalibrovka5;
+					Data1 = double.Parse(words[0])*k1 * mnozh + kalibrovka1;    
+					Data2 = double.Parse(words[1])*k2 * mnozh + kalibrovka2;
+					Data3 = double.Parse(words[2])*k3 * mnozh + kalibrovka3;
+					Data4 = double.Parse(words[3])*k4 * mnozh + kalibrovka4;
+					Data5 = double.Parse(words[4])*k5 * mnozh + kalibrovka5;
+
 
 					Thread.Sleep(10);
 					label8.Text = (Data1.ToString());
@@ -275,11 +287,11 @@ namespace WindowsFormsApp1
 		//   ПОЛНЫЙ ВЫХОД
 		public void exit()
 		{
-			Properties.Settings.Default.TEXTBOX_kalibrovka1 = kalibrovka1;
-			Properties.Settings.Default.TEXTBOX_kalibrovka2 = kalibrovka2;
-			Properties.Settings.Default.TEXTBOX_kalibrovka3 = kalibrovka3;
-			Properties.Settings.Default.TEXTBOX_kalibrovka4 = kalibrovka4;
-			Properties.Settings.Default.TEXTBOX_kalibrovka5 = kalibrovka5;
+			Properties.Settings.Default.TEXTBOX_kalibrovka1 = k1;
+			Properties.Settings.Default.TEXTBOX_kalibrovka2 = k2;
+			Properties.Settings.Default.TEXTBOX_kalibrovka3 = k3;
+			Properties.Settings.Default.TEXTBOX_kalibrovka4 = k4;
+			Properties.Settings.Default.TEXTBOX_kalibrovka5 = k5;
 			Properties.Settings.Default.Save();
 			full_delete(); Environment.Exit(0); Close();
 		}
@@ -287,20 +299,20 @@ namespace WindowsFormsApp1
 		//    КАЛИБРОВКА
 		private void button7_Click(object sender, EventArgs e)
 		{
-			kalibrovka1 = double.Parse(textBox11.Text);
-			kalibrovka2 = double.Parse(textBox10.Text);
-			kalibrovka3 = double.Parse(textBox9.Text);
-			kalibrovka4 = double.Parse(textBox8.Text);
-			kalibrovka5 = double.Parse(textBox7.Text);
+			k1 = (double.Parse(words[0]) - R1) / double.Parse(textBox11.Text);
+			label14.Text = k1.ToString();
 		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			R1 = double.Parse(words[0]);
+		}
+
+
 
 
 		private void textBox11_TextChanged(object sender, EventArgs e)
 		{
-			/*double qr = 0; //kalibrovka1
-			if (textBox11.Text == "")
-			{ qr = "0"; }
-			else*/
 		}
 
 		private void textBox10_TextChanged(object sender, EventArgs e)
@@ -366,6 +378,11 @@ namespace WindowsFormsApp1
 		}
 
 		private void label8_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label13_Click(object sender, EventArgs e)
 		{
 
 		}
