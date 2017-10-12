@@ -58,22 +58,12 @@ namespace WindowsFormsApp1
 		public string[] portnames = SerialPort.GetPortNames();
 		public SerialPort STMport;
 		public string resylt = " ";
-		public string[] words;
+		static public string[] words;
 
 		public Form1()
 		{
 			InitializeComponent();
-			k1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
-			k2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
-			k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
-			k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
-			k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
 
-			textBox11.Text = kalibrovka1.ToString();
-			textBox10.Text = kalibrovka2.ToString();
-			textBox9.Text = kalibrovka3.ToString();
-			textBox8.Text = kalibrovka4.ToString();
-			textBox7.Text = kalibrovka5.ToString();
 
 			List<mera> izmer = new List<mera>
 		{
@@ -148,6 +138,11 @@ namespace WindowsFormsApp1
 				words = text.Split(razdelitel);
 				for (int i = 0; i < words.Length; i++)
 				{
+					k1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
+					k2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
+					k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
+					k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
+					k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
 					Data1 = double.Parse(words[0])*k1 * mnozh + kalibrovka1;    
 					Data2 = double.Parse(words[1])*k2 * mnozh + kalibrovka2;
 					Data3 = double.Parse(words[2])*k3 * mnozh + kalibrovka3;
@@ -287,25 +282,16 @@ namespace WindowsFormsApp1
 		//   ПОЛНЫЙ ВЫХОД
 		public void exit()
 		{
-			Properties.Settings.Default.TEXTBOX_kalibrovka1 = k1;
-			Properties.Settings.Default.TEXTBOX_kalibrovka2 = k2;
-			Properties.Settings.Default.TEXTBOX_kalibrovka3 = k3;
-			Properties.Settings.Default.TEXTBOX_kalibrovka4 = k4;
-			Properties.Settings.Default.TEXTBOX_kalibrovka5 = k5;
-			Properties.Settings.Default.Save();
 			full_delete(); Environment.Exit(0); Close();
 		}
 
-		//    КАЛИБРОВКА
-		private void button7_Click(object sender, EventArgs e)
+		//   НАСТРОЙКИ
+		private void button5_Click_1(object sender, EventArgs e)
 		{
-			k1 = (double.Parse(words[0]) - R1) / double.Parse(textBox11.Text);
-			label14.Text = k1.ToString();
-		}
-
-		private void button5_Click(object sender, EventArgs e)
-		{
-			R1 = double.Parse(words[0]);
+			if (status == 1)
+				MessageBox.Show("Проверьте подключение", "Ошибка");
+			if (status == 0)
+				new Form2().Show();
 		}
 
 
@@ -386,6 +372,7 @@ namespace WindowsFormsApp1
 		{
 
 		}
+
 	}
 }
 
