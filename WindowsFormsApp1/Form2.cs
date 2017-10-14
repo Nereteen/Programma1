@@ -45,7 +45,11 @@ namespace WindowsFormsApp1
 			}
 			while (true);
 
+		}
 
+		private void button11_Click(object sender, EventArgs e)
+		{
+			new Form3().Show();
 		}
 
 		private void button6_Click(object sender, EventArgs e)
