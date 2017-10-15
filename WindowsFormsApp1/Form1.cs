@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
-using System.Timers;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Threading;
+
 
 namespace WindowsFormsApp1
 {
-
-
 	public partial class Form1 : Form
 	{
 		static public double mnozh;
-		static public double kalibrovka1 = 0;
-		static public double kalibrovka2 = 0;
-		static public double kalibrovka3 = 0;
-		static public double kalibrovka4 = 0;
-		static public double kalibrovka5 = 0;
 		public double Data1 = 0;
 		public double Data2 = 0;
 		public double Data3 = 0;
@@ -35,11 +21,6 @@ namespace WindowsFormsApp1
 		public double k3 = 1;
 		public double k4 = 1;
 		public double k5 = 1;
-		public double R1 = 1;
-		public double R2 = 1;
-		public double R3 = 1;
-		public double R4 = 1;
-		public double R5 = 1;
 		public string dete1 = "";
 		public string dete2 = "";
 		public string dete3 = "";
@@ -59,6 +40,7 @@ namespace WindowsFormsApp1
 		public SerialPort STMport;
 		public string resylt = " ";
 		static public string[] words;
+		public int status1 = 0;
 
 		public Form1()
 		{
@@ -90,7 +72,6 @@ namespace WindowsFormsApp1
 		private void PodklForm()
 		{
 			Form x = new Form();
-			
 			int a = 0;
 			int b = 0;
 			foreach (string port in portnames)
@@ -113,9 +94,8 @@ namespace WindowsFormsApp1
 				status = 1;
 			}
 
-			for (int statusZn = 0; status == 0; statusZn++)
+			do
 			{
-				
 				label8.Refresh();
 				label9.Refresh();
 				label10.Refresh();
@@ -143,11 +123,11 @@ namespace WindowsFormsApp1
 					k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
 					k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
 					k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
-					Data1 = double.Parse(words[0])*k1 * mnozh + kalibrovka1;    
-					Data2 = double.Parse(words[1])*k2 * mnozh + kalibrovka2;
-					Data3 = double.Parse(words[2])*k3 * mnozh + kalibrovka3;
-					Data4 = double.Parse(words[3])*k4 * mnozh + kalibrovka4;
-					Data5 = double.Parse(words[4])*k5 * mnozh + kalibrovka5;
+					Data1 = double.Parse(words[0])*k1 * mnozh;    
+					Data2 = double.Parse(words[1])*k2 * mnozh;
+					Data3 = double.Parse(words[2])*k3 * mnozh;
+					Data4 = double.Parse(words[3])*k4 * mnozh;
+					Data5 = double.Parse(words[4])*k5 * mnozh;
 
 
 					Thread.Sleep(10);
@@ -158,6 +138,7 @@ namespace WindowsFormsApp1
 					label12.Text = (Data5.ToString());
 				}
 			}
+			while (true);
 		}
 
 		//  КНОПКА СОХРАНИНИЯ 
@@ -288,10 +269,18 @@ namespace WindowsFormsApp1
 		//   НАСТРОЙКИ
 		private void button5_Click_1(object sender, EventArgs e)
 		{
+			
 			if (status == 1)
 				MessageBox.Show("Проверьте подключение", "Ошибка");
 			if (status == 0)
+			{
+				if (status1 == 0)
+				{
+					Thread.Sleep(1000);
+					status1 = 1;
+				}
 				new Form2().Show();
+			}
 		}
 
 
@@ -373,6 +362,9 @@ namespace WindowsFormsApp1
 
 		}
 
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+		}
 	}
 }
 
