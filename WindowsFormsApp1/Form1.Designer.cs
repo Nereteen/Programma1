@@ -50,7 +50,6 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
@@ -58,6 +57,9 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.button5 = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button7 = new System.Windows.Forms.Button();
+			this.button11 = new System.Windows.Forms.Button();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -73,7 +75,7 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(635, 92);
+			this.button2.Location = new System.Drawing.Point(635, 81);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(132, 37);
 			this.button2.TabIndex = 3;
@@ -83,7 +85,7 @@
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point(635, 296);
+			this.button3.Location = new System.Drawing.Point(635, 192);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(132, 37);
 			this.button3.TabIndex = 4;
@@ -93,7 +95,7 @@
 			// 
 			// button4
 			// 
-			this.button4.Location = new System.Drawing.Point(635, 152);
+			this.button4.Location = new System.Drawing.Point(635, 137);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(132, 37);
 			this.button4.TabIndex = 5;
@@ -241,19 +243,6 @@
 			this.label2.TabIndex = 23;
 			this.label2.Text = "Мера измерения:";
 			// 
-			// pictureBox1
-			// 
-			this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-			this.pictureBox1.Location = new System.Drawing.Point(707, 12);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(60, 56);
-			this.pictureBox1.TabIndex = 25;
-			this.pictureBox1.TabStop = false;
-			this.pictureBox1.WaitOnLoad = true;
-			this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-			// 
 			// label8
 			// 
 			this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -301,11 +290,11 @@
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(190, 361);
+			this.button5.Location = new System.Drawing.Point(477, 361);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(132, 37);
 			this.button5.TabIndex = 31;
-			this.button5.Text = "Настройки";
+			this.button5.Text = "Калибровка";
 			this.button5.UseVisualStyleBackColor = true;
 			this.button5.Click += new System.EventHandler(this.button5_Click_1);
 			// 
@@ -317,11 +306,46 @@
 			this.groupBox1.TabIndex = 32;
 			this.groupBox1.TabStop = false;
 			// 
+			// button7
+			// 
+			this.button7.Location = new System.Drawing.Point(197, 361);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(131, 37);
+			this.button7.TabIndex = 33;
+			this.button7.Text = "Обнулить показания датчиков";
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(635, 296);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(132, 37);
+			this.button11.TabIndex = 69;
+			this.button11.Text = "Инструкция";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.ErrorImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.ErrorImage")));
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+			this.pictureBox1.Location = new System.Drawing.Point(707, 12);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(60, 56);
+			this.pictureBox1.TabIndex = 25;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.WaitOnLoad = true;
+			this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(789, 417);
+			this.ClientSize = new System.Drawing.Size(789, 426);
+			this.Controls.Add(this.button11);
+			this.Controls.Add(this.button7);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.label9);
@@ -389,6 +413,8 @@
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Button button7;
+		private System.Windows.Forms.Button button11;
 	}
 }
 

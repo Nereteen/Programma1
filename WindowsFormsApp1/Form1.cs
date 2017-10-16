@@ -41,6 +41,11 @@ namespace WindowsFormsApp1
 		public string resylt = " ";
 		static public string[] words;
 		public int status1 = 0;
+		public double nol1 = 0;
+		public double nol2 = 0;
+		public double nol3 = 0;
+		public double nol4 = 0;
+		public double nol5 = 0;
 
 		public Form1()
 		{
@@ -94,51 +99,54 @@ namespace WindowsFormsApp1
 				status = 1;
 			}
 
-			do
+			if (status == 0)
 			{
-				label8.Refresh();
-				label9.Refresh();
-				label10.Refresh();
-				label11.Refresh();
-				label12.Refresh();
-				STMport = new SerialPort();
-				STMport.PortName = portnames[1];
-				STMport.BaudRate = 9600;
-				STMport.DataBits = 8;
-				STMport.Parity = System.IO.Ports.Parity.None;
-				STMport.StopBits = System.IO.Ports.StopBits.One;
-				STMport.ReadBufferSize = 16;
-				STMport.ReadTimeout = 1000;
-				STMport.DtrEnable = true;
-				STMport.Open();
-				resylt = STMport.ReadLine();
-				STMport.Close();
-				char razdelitel = ',';
-				string text = resylt;
-				words = text.Split(razdelitel);
-				for (int i = 0; i < words.Length; i++)
+				do
 				{
-					k1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
-					k2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
-					k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
-					k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
-					k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
-					Data1 = double.Parse(words[0])*k1 * mnozh;    
-					Data2 = double.Parse(words[1])*k2 * mnozh;
-					Data3 = double.Parse(words[2])*k3 * mnozh;
-					Data4 = double.Parse(words[3])*k4 * mnozh;
-					Data5 = double.Parse(words[4])*k5 * mnozh;
+					label8.Refresh();
+					label9.Refresh();
+					label10.Refresh();
+					label11.Refresh();
+					label12.Refresh();
+					STMport = new SerialPort();
+					STMport.PortName = portnames[1];
+					STMport.BaudRate = 9600;
+					STMport.DataBits = 8;
+					STMport.Parity = System.IO.Ports.Parity.None;
+					STMport.StopBits = System.IO.Ports.StopBits.One;
+					STMport.ReadBufferSize = 16;
+					STMport.ReadTimeout = 1000;
+					STMport.DtrEnable = true;
+					STMport.Open();
+					resylt = STMport.ReadLine();
+					STMport.Close();
+					char razdelitel = ',';
+					string text = resylt;
+					words = text.Split(razdelitel);
+					for (int i = 0; i < words.Length; i++)
+					{
+						k1 = Properties.Settings.Default.TEXTBOX_kalibrovka1;
+						k2 = Properties.Settings.Default.TEXTBOX_kalibrovka2;
+						k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
+						k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
+						k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
+						Data1 = double.Parse(words[0]) * k1 * mnozh - nol1;
+						Data2 = double.Parse(words[1]) * k2 * mnozh - nol2;
+						Data3 = double.Parse(words[2]) * k3 * mnozh - nol3;
+						Data4 = double.Parse(words[3]) * k4 * mnozh - nol4;
+						Data5 = double.Parse(words[4]) * k5 * mnozh - nol5;
 
 
-					Thread.Sleep(10);
-					label8.Text = (Data1.ToString());
-					label9.Text = (Data2.ToString());
-					label10.Text = (Data3.ToString());
-					label11.Text = (Data4.ToString());
-					label12.Text = (Data5.ToString());
+						Thread.Sleep(10);
+						label8.Text = (Data1.ToString());
+						label9.Text = (Data2.ToString());
+						label10.Text = (Data3.ToString());
+						label11.Text = (Data4.ToString());
+						label12.Text = (Data5.ToString());
+					}
 				}
+				while (true);
 			}
-			while (true);
 		}
 
 		//  КНОПКА СОХРАНИНИЯ 
@@ -186,7 +194,7 @@ namespace WindowsFormsApp1
 			}
 		}
 
-		//     ВЫВОД ДАННЫХ
+		//     КНОПКА ВЫВОД ДАННЫХ
 		private void button2_Click(object sender, EventArgs e)
 		{
 
@@ -234,14 +242,14 @@ namespace WindowsFormsApp1
 			public double Mn { get; set; }
 		}
 
-		//    ВЫХОД
+		//    КНОПКА ВЫХОД
 		private void button6_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) exit();
 		}
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			exit();
+			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) exit();
 		}
 
 		//   УДАЛЕНИЕ
@@ -266,7 +274,7 @@ namespace WindowsFormsApp1
 			full_delete(); Environment.Exit(0); Close();
 		}
 
-		//   НАСТРОЙКИ
+		//  КНОПКА НАСТРОЙКИ
 		private void button5_Click_1(object sender, EventArgs e)
 		{
 			
@@ -283,27 +291,25 @@ namespace WindowsFormsApp1
 			}
 		}
 
-
-
-
-		private void textBox11_TextChanged(object sender, EventArgs e)
+		//    КНОПКА Обнулить показания датчиков
+		private void button7_Click(object sender, EventArgs e)
 		{
+			if (status == 1)
+				MessageBox.Show("Проверьте подключение", "Ошибка");
+			if (status == 0)
+			{
+				nol1 = double.Parse(label8.Text);
+				nol2 = double.Parse(label9.Text);
+				nol3 = double.Parse(label10.Text);
+				nol4 = double.Parse(label11.Text);
+				nol5 = double.Parse(label12.Text);
+			}
 		}
 
-		private void textBox10_TextChanged(object sender, EventArgs e)
+		//  КНОПКА ИНСТРУКЦИЯ
+		private void button11_Click(object sender, EventArgs e)
 		{
-		}
-
-		private void textBox9_TextChanged(object sender, EventArgs e)
-		{
-		}
-
-		private void textBox8_TextChanged(object sender, EventArgs e)
-		{
-		}
-
-		private void textBox7_TextChanged_1(object sender, EventArgs e)
-		{
+			new Form5().Show();
 		}
 
 
@@ -333,38 +339,29 @@ namespace WindowsFormsApp1
 		private void label2_Click_1(object sender, EventArgs e)
 		{ }
 		private void label12_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void label11_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void label10_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void label9_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void label8_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void label13_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		{}
 		private void pictureBox1_Click(object sender, EventArgs e)
-		{
-		}
+		{}
+		private void textBox11_TextChanged(object sender, EventArgs e)
+		{}
+		private void textBox10_TextChanged(object sender, EventArgs e)
+		{}
+		private void textBox9_TextChanged(object sender, EventArgs e)
+		{ }
+		private void textBox8_TextChanged(object sender, EventArgs e)
+		{}
+		private void textBox7_TextChanged_1(object sender, EventArgs e)
+		{}
 	}
 }
 
