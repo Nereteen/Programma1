@@ -115,7 +115,7 @@ namespace WindowsFormsApp1
 					STMport.Parity = System.IO.Ports.Parity.None;
 					STMport.StopBits = System.IO.Ports.StopBits.One;
 					STMport.ReadBufferSize = 16;
-					STMport.ReadTimeout = 1000;
+					//STMport.ReadTimeout = 1000000000;
 					STMport.DtrEnable = true;
 					STMport.Open();
 					resylt = STMport.ReadLine();
@@ -245,11 +245,11 @@ namespace WindowsFormsApp1
 		//    КНОПКА ВЫХОД
 		private void button6_Click(object sender, EventArgs e)
 		{
-			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) exit();
+			 exit();
 		}
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (MessageBox.Show("Выйти?", "Подтверждение", MessageBoxButtons.YesNo) != DialogResult.No) exit();
+			 exit();
 		}
 
 		//   УДАЛЕНИЕ
