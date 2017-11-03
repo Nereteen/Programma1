@@ -47,7 +47,7 @@ namespace WindowsFormsApp1
 		public double nol4 = 0;
 		public double nol5 = 0;
 
-		public Form1()
+			public Form1()
 		{
 			InitializeComponent();
 
@@ -115,7 +115,6 @@ namespace WindowsFormsApp1
 					STMport.Parity = System.IO.Ports.Parity.None;
 					STMport.StopBits = System.IO.Ports.StopBits.One;
 					STMport.ReadBufferSize = 16;
-					//STMport.ReadTimeout = 1000000000;
 					STMport.DtrEnable = true;
 					STMport.Open();
 					resylt = STMport.ReadLine();
@@ -137,7 +136,7 @@ namespace WindowsFormsApp1
 						Data5 = double.Parse(words[4]) * k5 * mnozh - nol5;
 
 
-						Thread.Sleep(10);
+						Thread.Sleep(100);
 						label8.Text = (Data1.ToString());
 						label9.Text = (Data2.ToString());
 						label10.Text = (Data3.ToString());
@@ -202,24 +201,27 @@ namespace WindowsFormsApp1
 			MessageBox.Show("Проверьте подключение", "Ошибка");
 			if (status == 0)
 			{
-				stringArray1[collMas] = label8.Text.ToString();
-				stringArray2[collMas] = label9.Text.ToString();
-				stringArray3[collMas] = label10.Text.ToString();
-				stringArray4[collMas] = label11.Text.ToString();
-				stringArray5[collMas] = label12.Text.ToString();
-				collMas++;
+				if (collMas <= 17)
+				{
+					stringArray1[collMas] = label8.Text.ToString();
+					stringArray2[collMas] = label9.Text.ToString();
+					stringArray3[collMas] = label10.Text.ToString();
+					stringArray4[collMas] = label11.Text.ToString();
+					stringArray5[collMas] = label12.Text.ToString();
+					collMas++;
 
-				dete1 = label8.Text + Environment.NewLine + dete1;
-				dete2 = label9.Text + Environment.NewLine + dete2;
-				dete3 = label10.Text + Environment.NewLine + dete3;
-				dete4 = label11.Text + Environment.NewLine + dete4;
-				dete5 = label12.Text + Environment.NewLine + dete5;
+					dete1 = label8.Text + Environment.NewLine + dete1;
+					dete2 = label9.Text + Environment.NewLine + dete2;
+					dete3 = label10.Text + Environment.NewLine + dete3;
+					dete4 = label11.Text + Environment.NewLine + dete4;
+					dete5 = label12.Text + Environment.NewLine + dete5;
 
-				textBox1.Text = (dete1);
-				textBox2.Text = (dete2);
-				textBox3.Text = (dete3);
-				textBox4.Text = (dete4);
-				textBox5.Text = (dete5);
+					textBox1.Text = (dete1);
+					textBox2.Text = (dete2);
+					textBox3.Text = (dete3);
+					textBox4.Text = (dete4);
+					textBox5.Text = (dete5);
+				}				
 			}
 		}
 
@@ -271,7 +273,7 @@ namespace WindowsFormsApp1
 		//   ПОЛНЫЙ ВЫХОД
 		public void exit()
 		{
-			full_delete(); Environment.Exit(0); Close();
+			status = 1; full_delete(); Environment.Exit(0); Close();
 		}
 
 		//  КНОПКА НАСТРОЙКИ
