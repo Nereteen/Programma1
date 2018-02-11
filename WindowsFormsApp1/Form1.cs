@@ -133,11 +133,11 @@ namespace WindowsFormsApp1
 						k3 = Properties.Settings.Default.TEXTBOX_kalibrovka3;
 						k4 = Properties.Settings.Default.TEXTBOX_kalibrovka4;
 						k5 = Properties.Settings.Default.TEXTBOX_kalibrovka5;
-						Data1 = (double.Parse(words[0]) - nol1) / k1 * mnozh; //по формуле считается нагрузку на датчик 
-						Data2 = (double.Parse(words[1]) - nol2) / k2 * mnozh; //где "words" "сырые" значения с датчика, "nol" выполняет функцию обнуления показаний 
-						Data3 = (double.Parse(words[2]) - nol3) / k3 * mnozh; //"k" коэффициент, "mnozh" мера измерения (граммы, килограммы и д.р)
-						Data4 = (double.Parse(words[3]) - nol4) / k4 * mnozh;
-						Data5 = (double.Parse(words[4]) - nol5) / k5 * mnozh;
+						Data1 = (double.Parse(words[0])  / k1 * mnozh) - nol1; //по формуле считается нагрузку на датчик 
+						Data2 = (double.Parse(words[1])  / k2 * mnozh) - nol2; //где "words" "сырые" значения с датчика, "nol" выполняет функцию обнуления показаний 
+						Data3 = (double.Parse(words[2])  / k3 * mnozh) - nol3; //"k" коэффициент, "mnozh" мера измерения (граммы, килограммы и д.р)
+						Data4 = (double.Parse(words[3])  / k4 * mnozh) - nol4;
+						Data5 = (double.Parse(words[4])  / k5 * mnozh) - nol5;
 
 						label8.Text = (Data1.ToString());  //выводим полученные данные на экран
 						label9.Text = (Data2.ToString());
